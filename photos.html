@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Memories 📸</title>
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+
+        /* =====================================================
+           MEMORIES PAGE
+           ===================================================== */
+
+        .memory-page {
+            position: relative;
+            z-index: 2;
+
+            width: 90%;
+            max-width: 1000px;
+
+            margin: 40px auto;
+
+            color: white;
+
+            text-align: center;
+        }
+
+
+        .memory-page h1 {
+            font-size: 45px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .memory-page > p {
+            font-size: 20px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =====================================================
+           PHOTO GALLERY
+           ===================================================== */
+
+        .photo-gallery {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 25px;
+
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           ALL PHOTO CARDS
+           
+           Every photo uses the SAME card design.
+           ===================================================== */
+
+        .photo-card {
+
+            position: relative;
+
+            background: white;
+
+            padding: 15px 15px 25px;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.3);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+
+            animation:
+                memoryAppear 0.8s ease both;
+        }
+
+
+        /* Remove the old special first-four behaviour */
+
+        .photo-card:nth-child(-n+4) {
+
+            grid-column: auto;
+
+            display: block;
+
+            align-items: initial;
+
+        }
+
+
+        /* =====================================================
+           CARD HOVER
+           ===================================================== */
+
+        .photo-card:nth-child(odd) {
+
+            transform:
+                rotate(-2deg);
+        }
+
+
+        .photo-card:nth-child(even) {
+
+            transform:
+                rotate(2deg);
+        }
+
+
+        .photo-card:hover {
+
+            transform:
+                scale(1.04)
+                rotate(0deg);
+
+            box-shadow:
+                0 18px 35px rgba(0, 0, 0, 0.4);
+
+            z-index: 5;
+        }
+
+
+        /* =====================================================
+           PHOTO 1–4
+           
+           Normal photos.
+           No special background.
+           ===================================================== */
+
+        
+
+        /* =====================================================
+           PHOTOS 5–10
+           
+           Their backgrounds are controlled by --memory-bg.
+           
+           5  → photo1
+           6  → photo2
+           7  → photo3
+           8  → photo4
+           9  → photo1
+           10 → photo2
+           ===================================================== */
+
+        .photo-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -25px;
+
+            background-image:
+                var(--memory-bg);
+
+            background-size: cover;
+
+            background-position: center;
+
+            filter: blur(25px);
+
+            transform: scale(1.12);
+
+            opacity: 0.30;
+
+            z-index: 0;
+        }
+
+
+        /* Soft layer above blurred background */
+
+        .photo-card:nth-child(n+5)::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           ALL PHOTOS
+           
+           Same size and same behaviour.
+           
+           object-fit: contain means:
+           - no cropping
+           - no stretching
+           - entire photo stays visible
+           ===================================================== */
+
+        .photo-card img {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            height: 250px;
+
+            max-height: 250px;
+
+            object-fit: contain;
+
+            display: block;
+
+            margin: 0 auto;
+
+            border-radius: 12px;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+
+        /* Make sure the first four use EXACTLY
+           the same image rules as the others */
+
+        .photo-card:nth-child(-n+4) img {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            height: 250px;
+
+            max-height: 250px;
+
+            object-fit: contain;
+
+            display: block;
+
+            margin: 0 auto;
+
+            border-radius: 12px;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           CAPTIONS
+           ===================================================== */
+
+        .photo-caption {
+
+            position: relative;
+
+            z-index: 3;
+
+            margin:
+                12px 5px 5px;
+
+            font-size: 18px;
+
+            color: #444;
+
+            font-family:
+                "Comic Sans MS",
+                "Segoe Print",
+                cursive;
+
+            font-style: italic;
+
+            line-height: 1.4;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           STICKERS
+           ===================================================== */
+
+        .photo-sticker {
+
+            position: absolute;
+
+            top: -12px;
+
+            right: -10px;
+
+            z-index: 5;
+
+            font-size: 28px;
+
+            transform:
+                rotate(12deg);
+
+            animation:
+                stickerFloat 2s ease-in-out infinite;
+
+            pointer-events: none;
+        }
+
+
+        @keyframes stickerFloat {
+
+            0%,
+            100% {
+
+                transform:
+                    rotate(12deg)
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    rotate(12deg)
+                    translateY(-4px);
+            }
+        }
+
+
+        /* =====================================================
+           CARD APPEAR ANIMATION
+           ===================================================== */
+
+        .photo-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .photo-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .photo-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .photo-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .photo-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .photo-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .photo-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .photo-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .photo-card:nth-child(9) {
+            animation-delay: 0.9s;
+        }
+
+        .photo-card:nth-child(10) {
+            animation-delay: 1s;
+        }
+
+
+        @keyframes memoryAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(40px)
+                    scale(0.9);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           PHOTO POPUP
+           ===================================================== */
+
+        .photo-popup {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, 0.85);
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 100;
+
+            padding: 30px;
+
+            box-sizing: border-box;
+        }
+
+
+        .photo-popup.show {
+
+            display: flex;
+        }
+
+
+        .photo-popup img {
+
+            width: auto;
+
+            height: auto;
+
+            max-width: 90%;
+
+            max-height: 85vh;
+
+            object-fit: contain;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.6);
+
+            animation:
+                photoZoom 0.5s ease both;
+        }
+
+
+        @keyframes photoZoom {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    scale(0.7);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           CLOSE BUTTON
+           ===================================================== */
+
+        .close-photo {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 35px;
+
+            z-index: 102;
+
+            font-size: 45px;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           PREVIOUS / NEXT BUTTONS
+           ===================================================== */
+
+        .photo-nav {
+
+            position: absolute;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 50%;
+
+            padding: 0;
+
+            margin: 0;
+
+            border: none;
+
+            background:
+                rgba(255, 255, 255, 0.85);
+
+            color: #222;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            z-index: 101;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease;
+        }
+
+
+        .photo-nav:hover {
+
+            transform:
+                translateY(-50%)
+                scale(1.15);
+
+            background: white;
+        }
+
+
+        .prev-photo {
+
+            left: 25px;
+        }
+
+
+        .next-photo {
+
+            right: 25px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .memory-page {
+
+                width: 92%;
+
+                margin:
+                    30px auto;
+            }
+
+
+            .memory-page h1 {
+
+                font-size: 32px;
+
+                line-height: 1.3;
+            }
+
+
+            .memory-page > p {
+
+                font-size: 17px;
+
+                line-height: 1.5;
+            }
+
+
+            .photo-gallery {
+
+                grid-template-columns: 1fr;
+
+                gap: 25px;
+            }
+
+
+            .photo-card {
+
+                grid-column: auto;
+            }
+
+
+            .photo-card:nth-child(-n+4) {
+
+                grid-column: auto;
+            }
+
+
+            .photo-card img {
+
+                height: 250px;
+
+                max-height: 250px;
+            }
+
+
+            .photo-card:nth-child(-n+4) img {
+
+                height: 250px;
+
+                max-height: 250px;
+            }
+
+
+            .photo-caption {
+
+                font-size: 16px;
+            }
+
+
+            .photo-nav {
+
+                width: 45px;
+
+                height: 45px;
+
+                font-size: 22px;
+            }
+
+
+            .prev-photo {
+
+                left: 10px;
+            }
+
+
+            .next-photo {
+
+                right: 10px;
+            }
+
+
+            .photo-popup {
+
+                padding: 15px;
+            }
+
+
+            .photo-popup img {
+
+                max-width: 82%;
+
+                max-height: 80vh;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         FLOATING HEARTS
+         ===================================================== -->
+
+    <div class="hearts">
+
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MEMORIES PAGE
+         ===================================================== -->
+
+    <div class="memory-page">
+
+        <h1>
+            📸 Our Memories
+        </h1>
+
+        <p>
+            A few moments that became special memories. ❤️
+        </p>
+
+
+
+        <!-- =================================================
+             PHOTO GALLERY
+             ================================================= -->
+
+        <div class="photo-gallery">
+
+
+            <!-- =================================================
+                 PHOTO 1
+                 ================================================= -->
+
+            <div class="photo-card" style="--memory-bg: url('photos/photo1.png');">
+
+                <img
+                    src="photos/photo1.png"
+                    alt="Memory 1"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    That school bus day… one I'll always remember. 🚌❤️
+                </p>
+
+                <span class="photo-sticker">
+                    💖
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 2
+                 ================================================= -->
+
+            <div class="photo-card" style="--memory-bg: url('photos/photo2.png');">
+
+                <img
+                    src="photos/photo2.png"
+                    alt="Memory 2"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Just another moment from that special bus ride. 🚌✨
+                </p>
+
+                <span class="photo-sticker">
+                    💕
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 3
+                 ================================================= -->
+
+            <div class="photo-card" style="--memory-bg: url('photos/photo3.png');">
+
+                <img
+                    src="photos/photo3.png"
+                    alt="Memory 3"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Somehow, even simple bus rides became special memories. ❤️
+                </p>
+
+                <span class="photo-sticker">
+                    🌸
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 4
+                 ================================================= -->
+
+            <div class="photo-card" style="--memory-bg: url('photos/photo4.png');">
+
+                <img
+                    src="photos/photo4.png"
+                    alt="Memory 4"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    One day, four little memories, and a lot of smiles. 🥹💖
+                </p>
+
+                <span class="photo-sticker">
+                    ⭐
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 5
+                 BACKGROUND = PHOTO 1
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo1.png');"
+            >
+
+                <img
+                    src="photos/photo5.png"
+                    alt="Memory 5"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Smiles that make everything better 😊
+                </p>
+
+                <span class="photo-sticker">
+                    💕
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 6
+                 BACKGROUND = PHOTO 2
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo2.png');"
+            >
+
+                <img
+                    src="photos/photo6.png"
+                    alt="Memory 6"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Some days, your beauty just stands out. ❤️
+                </p>
+
+                <span class="photo-sticker">
+                    ✨
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 7
+                 BACKGROUND = PHOTO 3
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo3.png');"
+            >
+
+                <img
+                    src="photos/photo7.png"
+                    alt="Memory 7"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Getting ready to make the day a little more beautiful. ✨❤️
+                </p>
+
+                <span class="photo-sticker">
+                    🌷
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 8
+                 BACKGROUND = PHOTO 4
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo4.png');"
+            >
+
+                <img
+                    src="photos/photo8.png"
+                    alt="Memory 8"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    A new outfit, a new look, and a moment worth capturing. ✨❤️
+                </p>
+
+                <span class="photo-sticker">
+                    💖
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 9
+                 BACKGROUND = PHOTO 1
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo1.png');"
+            >
+
+                <img
+                    src="photos/photo9.png"
+                    alt="Memory 9"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    New dress, new memories, and that smile. 💕✨
+                </p>
+
+                <span class="photo-sticker">
+                    ✨
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PHOTO 10
+                 BACKGROUND = PHOTO 2
+                 ================================================= -->
+
+            <div
+                class="photo-card"
+                style="--memory-bg: url('photos/photo2.png');"
+            >
+
+                <img
+                    src="photos/photo10.png"
+                    alt="Memory 10"
+                    onclick="openPhoto(this.src)"
+                >
+
+                <p class="photo-caption">
+                    Some looks are just too good not to capture. ❤️✨
+                </p>
+
+                <span class="photo-sticker">
+                    🎀
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             BACK BUTTON
+             ===================================================== -->
+
+        <button onclick="window.close()">
+    🎂 Back to Birthday
+</button>
+
+
+        <footer class="site-footer">
+
+            Made with ❤️ for Dhivya
+
+        </footer>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FULLSCREEN PHOTO POPUP
+         ===================================================== -->
+
+    <div
+        id="photoPopup"
+        class="photo-popup"
+    >
+
+        <span
+            class="close-photo"
+            onclick="closePhoto()"
+        >
+            ×
+        </span>
+
+
+        <button
+            class="photo-nav prev-photo"
+            onclick="previousPhoto(event)"
+        >
+            ❮
+        </button>
+
+
+        <img
+            id="largePhoto"
+            src=""
+            alt="Large memory"
+        >
+
+
+        <button
+            class="photo-nav next-photo"
+            onclick="nextPhoto(event)"
+        >
+            ❯
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

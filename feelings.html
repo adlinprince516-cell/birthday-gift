@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something I've Been Feeling ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="hearts">
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+    </div>
+
+    <div class="feelings-page">
+
+        <h1>❤️ Something I've Been Feeling</h1>
+
+        <div class="feelings-card">
+
+            <p>
+                There’s something I’ve been slowly realizing over these four years.
+                You’re not just someone I care about as a friend.
+                Somewhere along the way, my feelings for you became something more.
+            </p>
+
+            <p>
+                I love the way you understand me, the way you take care of me,
+                and how naturally we connect.
+                Sometimes I genuinely feel like you’re the opposite-gender
+                version of me ❤️.
+            </p>
+
+            <p>
+                I don’t know exactly when I started feeling this way.
+                Maybe it happened so slowly that I didn’t even notice it at first.
+                But now I know that you hold a place in my heart
+                that isn’t the same as everyone else.
+            </p>
+
+            <p>
+                I’m not saying this because I expect anything from you.
+                I just wanted you to know what you mean to me.
+            </p>
+
+            <div class="feelings-divider">💗</div>
+
+            <p class="reveal-note">
+                There’s something I’ve never properly told you…
+            </p>
+
+            <button
+                type="button"
+                class="reveal-crush-button"
+                onclick="revealCrush()">
+                💗 Are you ready?
+            </button>
+
+            <p id="stageTwo" class="stage-two hidden">
+                There's one thing I want you to know...
+            </p>
+
+            <p id="crushReveal" class="feelings-final hidden">
+                I have a crush on you, Dhivya. ❤️
+            </p>
+
+            <div id="ringReveal" class="ring-reveal hidden" aria-hidden="true">
+                💍
+            </div>
+
+            <div id="proposalReveal" class="proposal-reveal hidden">
+                <img src="proposal.png" alt="A special moment">
+            </div>
+
+            <p id="afterReveal" class="after-reveal hidden">
+                I just wanted to be honest with you. ❤️
+                I don't know what happens next, but I wanted you to know how I feel. ❤️
+            </p>
+
+        </div>
+
+        <button id="backButton" onclick="window.close(); window.location.href='index.html'">
+            ← Back to Your Birthday Gift
+        </button>
+
+        <footer class="site-footer">
+            Made with love for Dhivya
+        </footer>
+
+    </div>
+
+    <script>
+function revealCrush() {
+
+    const button = document.querySelector(".reveal-crush-button");
+    const stageTwo = document.getElementById("stageTwo");
+    const crush = document.getElementById("crushReveal");
+    const ring = document.getElementById("ringReveal");
+    const proposal = document.getElementById("proposalReveal");
+    const ending = document.getElementById("afterReveal");
+    const backButton = document.getElementById("backButton");
+
+    if (!button || !stageTwo || !crush || !ending) return;
+
+    button.disabled = true;
+
+    document.body.classList.add(
+        "reveal-focus",
+        "reveal-atmosphere"
+    );
+
+    button.classList.add("reveal-button-hide");
+
+    /* =========================
+       STAGE 1 → BUILDUP
+       ========================= */
+
+    setTimeout(() => {
+
+        button.style.display = "none";
+
+        stageTwo.classList.remove("hidden");
+        stageTwo.classList.add("stage-two-visible");
+
+    }, 450);
+
+
+    /* =========================
+       BUILDUP → FADE OUT
+       ========================= */
+
+    setTimeout(() => {
+
+        stageTwo.classList.remove("stage-two-visible");
+        stageTwo.classList.add("stage-two-hide");
+
+    }, 3150);
+
+
+    /* =========================
+       CONFESSION
+       ========================= */
+
+    setTimeout(() => {
+
+        stageTwo.style.display = "none";
+
+        crush.classList.remove("hidden");
+        crush.classList.add("crush-visible");
+
+    }, 3650);
+
+
+    /* =========================
+       💍 RING MOMENT
+       ========================= */
+
+    setTimeout(() => {
+
+        if (ring) {
+
+            ring.classList.remove("hidden");
+            ring.classList.add("ring-visible");
+
+        }
+
+    }, 5050);
+
+
+    /* =========================
+       🖼️ PROPOSAL IMAGE
+       ========================= */
+
+    setTimeout(() => {
+
+        if (proposal) {
+
+            proposal.classList.remove("hidden");
+            proposal.classList.add("proposal-visible");
+
+        }
+
+    }, 5650);
+
+
+    /* =========================
+       FINAL MESSAGE
+       ========================= */
+
+    setTimeout(() => {
+
+        ending.classList.remove("hidden");
+        ending.classList.add("ending-visible");
+
+        ending.style.display = "block";
+
+    }, 7350);
+
+
+    /* =========================
+       BACK BUTTON
+       ========================= */
+
+    setTimeout(() => {
+
+        if (backButton) {
+            backButton.classList.add("back-button-visible");
+        }
+
+    }, 7900);
+
+}
+    </script>
+
+</body>
+</html>

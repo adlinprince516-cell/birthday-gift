@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Special Birthday Gift 🎁</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="hearts">
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+    </div>
+
+    <div class="balloons">
+        <span>🎈</span>
+        <span>🎈</span>
+        <span>🎈</span>
+        <span>🎈</span>
+        <span>🎈</span>
+    </div>
+
+    <div class="container">
+
+        <!-- First Screen -->
+        <div id="welcome">
+
+            <h1>Hey! 👋</h1>
+
+            <p>I made something special for you...</p>
+
+            <div id="countdown-section">
+                <h2>🎂 Something special is waiting...</h2>
+                <p>Come back on your birthday! ✨</p>
+
+                <div id="countdown">
+                    <span><b id="days">0</b> Days</span>
+                    <span><b id="hours">0</b> Hours</span>
+                    <span><b id="minutes">0</b> Minutes</span>
+                    <span><b id="seconds">0</b> Seconds</span>
+                </div>
+            </div>
+
+            <div class="gift-area">
+
+                <span class="gift-sparkle sparkle1">✨</span>
+                <span class="gift-sparkle sparkle2">⭐</span>
+                <span class="gift-sparkle sparkle3">✨</span>
+                <span class="gift-sparkle sparkle4">💫</span>
+
+                <div class="gift-box" onclick="openGift(); confetti()">
+                    🎁
+                </div>
+
+            </div>
+
+            <p class="gift-hint">Click the gift to open it ✨</p>
+
+        </div>
+
+
+        <!-- Birthday Screen -->
+        <div id="gift" class="hidden">
+
+            <h1>🎉 Happy Birthday, Dhivya Challum! 🎉</h1>
+
+            <p>
+                You deserve a beautiful day filled with happiness and smiles. 💖
+            </p>
+
+            <button onclick="showMessage()">
+                💌 Open Your Special Message
+            </button>
+
+
+            <!-- Birthday Music -->
+            <div class="music-player">
+
+                <div class="music-top">
+
+                    <div>
+                        <h3 id="songTitle">Kannu Thangom</h3>
+                        <p id="songArtist">MassTamilan</p>
+                    </div>
+
+                    <span class="music-heart">♥</span>
+
+                </div>
+
+
+                <div class="music-progress-area">
+
+                    <input
+                        type="range"
+                        id="musicProgress"
+                        min="0"
+                        max="100"
+                        value="0"
+                    >
+
+                    <div class="music-time">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+
+                </div>
+
+
+                <div class="music-controls">
+
+                    <button
+                        type="button"
+                        id="shuffleButton"
+                        onclick="toggleShuffle()">
+                        🔀
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="previousSong()">
+                        ⏮
+                    </button>
+
+                    <button
+                        type="button"
+                        class="main-play-button"
+                        id="musicButton"
+                        onclick="toggleMusic()">
+                        ▶
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="nextSong()">
+                        ⏭
+                    </button>
+
+                    <button
+                        type="button"
+                        id="repeatButton"
+                        onclick="toggleRepeat()">
+                        🔁
+                    </button>
+
+                </div>
+
+                <audio id="birthdayMusic"></audio>
+
+            </div>
+
+
+            <!-- Personal Message -->
+            <div id="message" class="hidden">
+
+                <div class="birthday-card">
+
+                    <div class="corner top-left">💖</div>
+                    <div class="corner top-right">✨</div>
+                    <div class="corner bottom-left">✨</div>
+                    <div class="corner bottom-right">💖</div>
+
+                    <div class="card-decoration">
+                        🎈 ✨ 💖 ✨ 🎈
+                    </div>
+
+                    <h2>❤️ Four Years, Four Chapters</h2>
+
+                    <p>
+                        Some moments that made our friendship special.
+                    </p>
+
+
+                    <h2>For Dhivya Challum 💌</h2>
+
+                    <p id="typedMessage"></p>
+
+
+                    <div class="card-footer">
+                        🎂 With lots of happiness 🎂
+                    </div>
+
+
+                    <!-- LITTLE SURPRISE 2.0 BUTTON -->
+                    <button
+                        class="surprise-button"
+                        onclick="showSurprise()">
+
+                        🌟 A Little Surprise
+
+                    </button>
+
+
+                    <button
+                        class="memory-button"
+                        onclick="window.open('photos.html', '_blank')">
+
+                        📸 View Our Memories
+
+                    </button>
+
+
+                    <!-- LITTLE SURPRISE 2.0 -->
+
+<div
+    id="surpriseText"
+    class="hidden little-surprise">
+
+    <div
+        class="surprise-backdrop"
+        aria-hidden="true">
+    </div>
+
+    <div class="surprise-box">
+
+        <!-- CLOSE -->
+
+        <button
+            type="button"
+            class="surprise-close"
+            onclick="closeSurprise()"
+            aria-label="Close surprise">
+            ×
+        </button>
+
+
+        <!-- ============================= -->
+        <!-- STAGE 1 — INTRO -->
+        <!-- ============================= -->
+
+        <div
+            id="surpriseIntro"
+            class="surprise-stage">
+
+            <div class="surprise-sparkles">
+                ✨ ⭐ ✨
+            </div>
+
+            <div class="mini-gift">
+                🎁
+            </div>
+
+            <h3>
+                🎁 A Little Surprise
+            </h3>
+
+            <p>
+                Okay... there's something special
+                waiting inside. 👀✨
+            </p>
+
+            <button
+                type="button"
+                class="surprise-open-button"
+                onclick="openLittleSurprise()">
+
+                🎀 Open It
+
+            </button>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- STAGE 2 — BIG GIFT BOX -->
+        <!-- ============================= -->
+
+        <div
+            id="surpriseGiftStage"
+            class="surprise-stage hidden">
+
+            <div class="surprise-sparkles">
+                ✨ 💫 ✨
+            </div>
+
+            <h3>
+                🎁 There's something inside...
+            </h3>
+
+            <div
+                class="vip-gift-box"
+                onclick="openVipBox()"
+                role="button"
+                tabindex="0"
+                aria-label="Open the VIP gift box">
+
+                <div class="gift-box-lid">
+                    🎀
+                </div>
+
+                <div class="gift-box-body">
+                    🎁
+                </div>
+
+            </div>
+
+            <p class="gift-box-hint">
+                Tap the gift box 👆
+            </p>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- STAGE 3 — VIP TICKET -->
+        <!-- ============================= -->
+
+        <div
+            id="vipTicketStage"
+            class="surprise-stage hidden">
+
+            <div class="ticket-sparkles">
+                ✨ 🎟️ ✨
+            </div>
+
+            <div
+                id="vipTicket"
+                class="vip-ticket">
+
+                <div class="ticket-top">
+                    🎟️ VIP ACCESS
+                </div>
+
+                <div class="ticket-title">
+                    VIP TICKET
+                </div>
+
+                <div class="ticket-heart">
+                    ❤️
+                </div>
+
+                <div class="ticket-subtitle">
+                    FOR MY HEART
+                </div>
+
+                <div class="ticket-line"></div>
+
+                <div class="ticket-details">
+                    <p>
+                        <strong>Holder:</strong>
+                        Dhivya
+                    </p>
+
+                    <p>
+                        <strong>Access:</strong>
+                        4 Special Memories
+                    </p>
+
+                    <p>
+                        <strong>Valid:</strong>
+                        Forever ✨
+                    </p>
+                </div>
+
+                <div class="ticket-code">
+                    DC • 4Y • ❤️
+                </div>
+
+            </div>
+
+            <p class="ticket-hint">
+                Your VIP ticket has arrived. 🎟️
+            </p>
+
+            <button
+                type="button"
+                class="ticket-button"
+                onclick="presentVipTicket()">
+
+                🎟️ Present My Ticket
+
+            </button>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- STAGE 4 — VIP DOOR -->
+        <!-- ============================= -->
+
+        <div
+            id="vipDoorStage"
+            class="surprise-stage hidden">
+
+            <div class="door-sparkles">
+                ✨ 🔐 ✨
+            </div>
+
+            <h3>
+                🚪 VIP Memory Room
+            </h3>
+
+            <p>
+                This door only opens with a VIP ticket.
+            </p>
+
+            <div class="memory-door">
+
+                <div class="door-frame">
+
+                    <div
+                        id="door"
+                        class="door"
+                        onclick="unlockMemoryDoor()"
+                        role="button"
+                        tabindex="0">
+
+                        <div class="door-number">
+                            4
+                        </div>
+
+                        <div class="door-handle">
+                            ●
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p
+                id="doorStatus"
+                class="door-status">
+
+                🔒 Ticket required
+
+            </p>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- STAGE 5 — FOUR MEMORIES -->
+        <!-- ============================= -->
+
+        <div
+            id="fourMemoriesStage"
+            class="surprise-stage hidden">
+
+            <div class="memory-room-header">
+
+                <div class="surprise-sparkles">
+                    💖 ✨ 💕 ✨ 💖
+                </div>
+
+                <h3>
+                    ❤️ Your VIP Memories
+                </h3>
+
+                <p>
+                    Four years. Four memories.
+                </p>
+
+            </div>
+
+
+            <div class="vip-memory-grid">
+
+
+                <!-- YEAR 1 -->
+
+                <div class="vip-memory-card">
+
+                    <div class="vip-memory-number">
+                        1
+                    </div>
+
+                    <div class="vip-memory-content">
+
+                        <h4>
+                            🌱 Year 1
+                        </h4>
+
+                        <p>
+                            It was my first year in that school,
+                            and we were just normal friends.
+                            At that time, I had no idea that this
+                            simple friendship would slowly become
+                            such a special part of my life. ❤️
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR 2 -->
+
+                <div class="vip-memory-card">
+
+                    <div class="vip-memory-number">
+                        2
+                    </div>
+
+                    <div class="vip-memory-content">
+
+                        <h4>
+                            ✨ Year 2
+                        </h4>
+
+                        <p>
+                            By our second year, we became a little
+                            closer and started talking more.
+                            Slowly, our normal friendship began
+                            turning into something more special. ❤️
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR 3 -->
+
+                <div class="vip-memory-card">
+
+                    <div class="vip-memory-number">
+                        3
+                    </div>
+
+                    <div class="vip-memory-content">
+
+                        <h4>
+                            💫 Year 3
+                        </h4>
+
+                        <p>
+                            By our third year, we became much closer
+                            and started sharing a lot of things with
+                            each other. The school bus rides became
+                            something I looked forward to, because
+                            somehow the time never felt complete
+                            without talking to you. ❤️
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR 4 -->
+
+                <div class="vip-memory-card">
+
+                    <div class="vip-memory-number">
+                        4
+                    </div>
+
+                    <div class="vip-memory-content">
+
+                        <h4>
+                            ❤️ Year 4
+                        </h4>
+
+                        <p>
+                            Four years of memories that I'll
+                            always remember. Somehow, this simple
+                            friendship became such a special part
+                            of my life. ❤️
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="memories-final-message">
+
+                <div class="final-memory-heart">
+                    ❤️
+                </div>
+
+                <p>
+                    Four years.
+                    Four memories.
+                    <br>
+                    And somehow...
+                    there are still so many more to make. ✨
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="surprise-continue-button"
+                onclick="closeSurprise()">
+
+                🎂 Back to the Birthday
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+            <div id="fourMemoriesStage" class="surprise-stage hidden">
+
+    <div class="memory-room-header">
+
+        <div class="surprise-sparkles">
+            💖 ✨ 💕 ✨ 💖
+        </div>
+
+        <h3>❤️ Your VIP Memories</h3>
+
+        <p>
+            Four years. Four memories.
+        </p>
+
+    </div>
+
+
+    <!-- YEAR NAVIGATION -->
+
+    <div class="vip-timeline">
+
+        <div class="vip-timeline-line">
+
+            <button
+                type="button"
+                class="vip-year active"
+                id="vipYear1"
+                onclick="showVipYear(1)">
+
+                <span>1</span>
+                <small>Year 1</small>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="vip-year"
+                id="vipYear2"
+                onclick="showVipYear(2)">
+
+                <span>2</span>
+                <small>Year 2</small>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="vip-year"
+                id="vipYear3"
+                onclick="showVipYear(3)">
+
+                <span>3</span>
+                <small>Year 3</small>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="vip-year"
+                id="vipYear4"
+                onclick="showVipYear(4)">
+
+                <span>4</span>
+                <small>Year 4</small>
+
+            </button>
+
+        </div>
+
+
+        <!-- MEMORY DISPLAY -->
+
+        <div class="vip-memory-display">
+
+
+            <!-- YEAR 1 -->
+
+            <div
+                id="vipMemory1"
+                class="vip-memory-panel">
+
+                <div class="vip-memory-number">
+                    1
+                </div>
+
+                <div class="vip-memory-content">
+
+                    <h4>🌱 Year 1</h4>
+
+                    <p>
+                        It was my first year in that school,
+                        and we were just normal friends.
+                        At that time, I had no idea that this
+                        simple friendship would slowly become
+                        such a special part of my life. ❤️
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- YEAR 2 -->
+
+            <div
+                id="vipMemory2"
+                class="vip-memory-panel hidden">
+
+                <div class="vip-memory-number">
+                    2
+                </div>
+
+                <div class="vip-memory-content">
+
+                    <h4>✨ Year 2</h4>
+
+                    <p>
+                        By our second year, we became a little
+                        closer and started talking more.
+                        Slowly, our normal friendship began
+                        turning into something more special. ❤️
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- YEAR 3 -->
+
+            <div
+                id="vipMemory3"
+                class="vip-memory-panel hidden">
+
+                <div class="vip-memory-number">
+                    3
+                </div>
+
+                <div class="vip-memory-content">
+
+                    <h4>💫 Year 3</h4>
+
+                    <p>
+                        By our third year, we became much closer
+                        and started sharing a lot of things with
+                        each other. The school bus rides became
+                        something I looked forward to, because
+                        somehow the time never felt complete
+                        without talking to you. ❤️
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- YEAR 4 -->
+
+            <div
+                id="vipMemory4"
+                class="vip-memory-panel hidden">
+
+                <div class="vip-memory-number">
+                    4
+                </div>
+
+                <div class="vip-memory-content">
+
+                    <h4>❤️ Year 4</h4>
+
+                    <p>
+                        Four years of memories that I'll always
+                        remember. Somehow, this simple friendship
+                        became such a special part of my life. ❤️
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PREVIOUS / NEXT -->
+
+        <div class="vip-memory-navigation">
+
+            <button
+                type="button"
+                id="vipPreviousButton"
+                onclick="previousVipYear()"
+                disabled>
+
+                ← Previous
+
+            </button>
+
+
+            <span id="vipYearCounter">
+                Year 1 of 4
+            </span>
+
+
+            <button
+                type="button"
+                id="vipNextButton"
+                onclick="nextVipYear()">
+
+                Next →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="surprise-continue-button"
+        onclick="closeSurprise()">
+
+        🎂 Back to the Birthday
+
+    </button>
+
+</div>
+            <button
+                class="final-surprise-button"
+                onclick="window.open('feelings.html', '_blank')">
+
+                ✨ One Last Thing...
+
+            </button>
+
+
+        </div>
+
+
+        <footer class="site-footer">
+
+            Made with love for Dhivya
+
+        </footer>
+
+
+    </div>
+
+
+    <script src="script.js?v=2"></script>
+
+</body>
+
+</html>
